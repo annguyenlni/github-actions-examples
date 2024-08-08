@@ -1,0 +1,86 @@
+name: 09 - Deploy SPA
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: node:20-alpine3.19
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install tar
+        run: apk add tar
+
+      - name: Cache node-modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist
+
+  test:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    container: node:20-alpine3.19
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install tar
+        run: apk add tar
+
+      - name: Cache node-modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install chromium
+        run: apk add chromium
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        env:
+          CHROME_BIN: "/usr/bin/chromium-browser"
+        run: npm run test:ci
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage
+
+  deploy:
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    container: node:20-alpine3.19
+    env:
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      SURGE_DOMAIN: github-actions-kms-demo.surge.sh
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: dist
+
+      - name: Deploy to Surge
+        run: npx surge --project ./dist/angular/browser --domain ${{ env.SURGE_DOMAIN }}
