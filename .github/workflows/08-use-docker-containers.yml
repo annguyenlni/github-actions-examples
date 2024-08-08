@@ -1,0 +1,12 @@
+name: 08 - Use Docker Containers
+
+on: workflow_dispatch
+
+jobs:
+  run-jdk-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: openjdk:17
+    steps:
+      - name: Log Java version
+        run: java --version
