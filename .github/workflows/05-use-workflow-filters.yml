@@ -3,8 +3,7 @@ name: 05 - Use Workflow Filters
 on:
   push:
     branches:
-      - master
-      - 05-*
+      - 05-**
     tags:
       - v*
     paths:

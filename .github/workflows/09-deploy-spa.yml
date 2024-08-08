@@ -3,7 +3,7 @@ name: 09 - Deploy SPA
 on:
   push:
     branches:
-      - feature/*
+      - feature/**
       - deploy
 
 jobs:
