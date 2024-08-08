@@ -1,6 +1,9 @@
-name: 01 - Create a Simple Workflow
+name: 04 - Trigger Workflows with Events
 
-on: workflow_dispatch
+on:
+  - push
+  - pull_request
+  - workflow_dispatch
 
 jobs:
   run-shell-commands:
@@ -19,9 +22,3 @@ jobs:
         run: |
           import platform 
           print(platform.python_version())
-
-  run-windows-commands:
-    runs-on: windows-latest
-    steps:
-      - name: Run Powershell command
-        run: Get-Location
