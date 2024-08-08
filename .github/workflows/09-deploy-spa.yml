@@ -2,7 +2,8 @@ name: 09 - Deploy SPA
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - deploy
 
 jobs:
   build:
