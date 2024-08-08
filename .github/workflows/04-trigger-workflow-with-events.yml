@@ -1,9 +1,11 @@
 name: 04 - Trigger Workflows with Events
 
 on:
-  - push
-  - pull_request
-  - workflow_dispatch
+  push:
+    branches:
+      - 04-**
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   hello-world:
