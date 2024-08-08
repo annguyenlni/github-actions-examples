@@ -1,0 +1,18 @@
+name: 05 - Use Workflow Filters
+
+on:
+  push:
+    branches:
+      - master
+      - 05-*
+    tags:
+      - v*
+    paths:
+      - "**.js"
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo a string
+        run: echo "Hello World!"

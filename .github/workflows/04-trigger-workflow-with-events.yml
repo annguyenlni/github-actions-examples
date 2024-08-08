@@ -6,19 +6,8 @@ on:
   - workflow_dispatch
 
 jobs:
-  run-shell-commands:
+  hello-world:
     runs-on: ubuntu-latest
     steps:
       - name: Echo a string
         run: echo "Hello World!"
-
-      - name: Run multiline commands
-        run: |
-          pwd
-          python --version
-
-      - name: Run Python command
-        shell: python
-        run: |
-          import platform 
-          print(platform.python_version())
