@@ -1,0 +1,17 @@
+name: 02 - Use a Simple Action
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Hello action
+        id: hello-action
+        uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: KMS
+      - name: Log hello time
+        run: echo "${{ steps.hello-action.outputs.time }}"
