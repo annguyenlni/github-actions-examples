@@ -1,0 +1,32 @@
+name: 03 - Use Checkout Action
+
+on: workflow_dispatch
+
+jobs:
+  list-files-without-using-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: |
+          git init
+          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+          git config --global user.email "nguyan06@risk.regn.net"
+          git config --global user.name "An Phuc Thien Nguyen"
+          git fetch
+          git checkout $GITHUB_SHA
+      - name: List files after checkout
+        run: |
+          pwd
+          ls -a
+          cat hello-world.txt
+
+  list-files-using-checkout-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: List files after checkout
+        run: |
+          pwd
+          ls -a
+          cat hello-world.txt

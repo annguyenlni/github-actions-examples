@@ -1,8 +1,6 @@
 name: 02 - Use a Simple Action
 
-on:
-  - push
-  - workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   run-action:

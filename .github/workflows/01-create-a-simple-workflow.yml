@@ -1,8 +1,6 @@
 name: 01 - Create a Simple Workflow
 
-on:
-  - push
-  - workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   run-shell-commands:
