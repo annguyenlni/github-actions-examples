@@ -74,7 +74,7 @@ jobs:
   deploy:
     needs: [ test ]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/deploy'
+    if: github.ref == 'refs/heads/main'
     container: node:20-alpine3.19
     env:
       SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
