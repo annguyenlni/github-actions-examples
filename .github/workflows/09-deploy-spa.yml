@@ -3,8 +3,9 @@ name: 09 - Deploy SPA
 on:
   push:
     branches:
+      - main
+      - develop
       - feature/**
-      - deploy
 
 jobs:
   build:
