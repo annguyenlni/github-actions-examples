@@ -65,6 +65,7 @@ jobs:
         run: npm run test:ci
 
       - name: Upload test coverage
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: code-coverage
