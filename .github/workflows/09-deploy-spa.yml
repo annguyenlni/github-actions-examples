@@ -77,7 +77,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     container: node:20-alpine3.19
     env:
-      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       SURGE_DOMAIN: github-actions-kms-demo.surge.sh
 
     steps:
@@ -88,4 +87,7 @@ jobs:
           path: dist
 
       - name: Deploy to Surge
-        run: npx surge --project ./dist/angular/browser --domain ${{ env.SURGE_DOMAIN }}
+        run: |
+          npx surge --project ./dist/angular/browser \
+          --domain ${{ env.SURGE_DOMAIN }} \
+          --token ${{ secrets.SURGE_TOKEN }}
